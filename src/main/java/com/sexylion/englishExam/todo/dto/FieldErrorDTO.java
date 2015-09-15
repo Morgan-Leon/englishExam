@@ -1,4 +1,4 @@
-package com.syzton.sunread.todo.dto;
+package com.sexylion.englishExam.todo.dto;
 
 /**
  * @author Petri Kainulainen

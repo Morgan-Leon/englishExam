@@ -9,6 +9,6 @@
     </bean>
 
     <bean id="todoService" name="todoService" class="org.mockito.Mockito" factory-method="mock">
-        <constructor-arg value="com.syzton.sunread.todo.service.TodoService"/>
+        <constructor-arg value="com.sexylion.englishExam.todo.service.TodoService"/>
     </bean>
 </beans>

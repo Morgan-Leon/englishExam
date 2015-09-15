@@ -1,8 +1,8 @@
-package com.syzton.sunread.todo.service;
+package com.sexylion.englishExam.todo.service;
 
-import com.syzton.sunread.todo.dto.TodoDTO;
-import com.syzton.sunread.todo.exception.TodoNotFoundException;
-import com.syzton.sunread.todo.model.Todo;
+import com.sexylion.englishExam.todo.dto.TodoDTO;
+import com.sexylion.englishExam.todo.exception.TodoNotFoundException;
+import com.sexylion.englishExam.todo.model.Todo;
 
 import java.util.List;
 
@@ -22,7 +22,7 @@ public interface TodoService {
      * Deletes a to-do entry.
      * @param id    The id of the deleted to-do entry.
      * @return  The deleted to-do entry.
-     * @throws com.syzton.sunread.todo.exception.TodoNotFoundException    if no to-do entry is found with the given id.
+     * @throws com.sexylion.englishExam.todo.exception.TodoNotFoundException    if no to-do entry is found with the given id.
      */
     public Todo deleteById(Long id) throws TodoNotFoundException;
 

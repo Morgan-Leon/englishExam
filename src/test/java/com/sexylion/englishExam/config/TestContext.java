@@ -1,17 +1,18 @@
 package com.sexylion.englishExam.config;
 
+import com.sexylion.englishExam.todo.service.TodoService;
+
+import org.mockito.Mockito;
 import org.springframework.context.MessageSource;
-import org.springframework.context.annotation.*;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
 
 /**
  * @author Petri Kainulainen
  */
 @Configuration
-@ComponentScan(basePackages = {"com.sexylion.englishExam.todo.service"})
-@Import({WebAppContext.class, PersistenceContext.class})
-@PropertySource("classpath:application.properties")
-public class ApplicationContext {
+public class TestContext {
 
     private static final String MESSAGE_SOURCE_BASE_NAME = "i18n/messages";
 
@@ -23,5 +24,10 @@ public class ApplicationContext {
         messageSource.setUseCodeAsDefaultMessage(true);
 
         return messageSource;
+    }
+
+    @Bean
+    public TodoService todoService() {
+        return Mockito.mock(TodoService.class);
     }
 }

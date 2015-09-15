@@ -1,6 +1,7 @@
-package com.syzton.sunread.todo.repository;
+package com.sexylion.englishExam.todo.repository;
 
-import com.syzton.sunread.todo.model.Todo;
+import com.sexylion.englishExam.todo.model.Todo;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**

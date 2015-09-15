@@ -1,4 +1,4 @@
-package com.syzton.sunread.todo.model;
+package com.sexylion.englishExam.todo.model;
 
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.hibernate.annotations.Type;

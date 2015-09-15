@@ -1,4 +1,4 @@
-package com.syzton.sunread.config;
+package com.sexylion.englishExam.config;
 
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;

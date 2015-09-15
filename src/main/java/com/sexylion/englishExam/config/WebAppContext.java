@@ -1,4 +1,4 @@
-package com.syzton.sunread.config;
+package com.sexylion.englishExam.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -20,8 +20,8 @@ import java.util.Properties;
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = {
-        "com.syzton.sunread.common.controller",
-        "com.syzton.sunread.todo.controller"
+        "com.sexylion.englishExam.common.controller",
+        "com.sexylion.englishExam.todo.controller"
 })
 public class WebAppContext extends WebMvcConfigurerAdapter {
 

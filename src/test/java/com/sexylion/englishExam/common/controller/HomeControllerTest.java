@@ -1,18 +1,18 @@
-package com.syzton.sunread.common.controller;
+package com.sexylion.englishExam.common.controller;
 
-import com.sexylion.englishExam.config.ApplicationContext;
+import com.sexylion.englishExam.config.TestContext;
+import com.sexylion.englishExam.config.WebAppContext;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
-
-import javax.annotation.Resource;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.forwardedUrl;
@@ -23,15 +23,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @author Petri Kainulainen
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {ApplicationContext.class})
-//@ContextConfiguration(locations = {"classpath:exampleApplicationContext.xml"})
+@ContextConfiguration(classes = {TestContext.class, WebAppContext.class})
+//@ContextConfiguration(locations = {"classpath:testContext.xml", "classpath:exampleApplicationContext-web.xml"})
 @WebAppConfiguration
-public class ITHomeControllerTest {
-
-    @Resource
-    private WebApplicationContext webApplicationContext;
+public class HomeControllerTest {
 
     private MockMvc mockMvc;
+
+    @Autowired
+    private WebApplicationContext webApplicationContext;
 
     @Before
     public void setUp() {
