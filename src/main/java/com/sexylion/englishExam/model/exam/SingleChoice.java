@@ -13,7 +13,6 @@ import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.deser.impl.ExternalTypeHandler.Builder;
 import com.sexylion.englishExam.common.model.AbstractEntity;
 import com.sexylion.englishExam.dto.exam.SingleChoiceDTO;
 import com.sexylion.englishExam.utill.DateSerializer;
@@ -203,13 +202,32 @@ public class SingleChoice extends AbstractEntity{
             built.description = description;
             return this;
         }
+
+		/**
+		 * @return
+		 */
+		public SingleChoice build() {
+			// TODO Auto-generated method stub
+			return built;
+		}
 		
 	}//END BUILD
 
 	public SingleChoiceDTO createDTO() {
 		// TODO Auto-generated constructor stub
 		SingleChoiceDTO dto = new SingleChoiceDTO();
-		
+		dto.setDescription(description);
+		dto.setName(name);
+		dto.setIssue(issue);
+		dto.setOptionA(optionA);
+		dto.setOptionB(optionB);
+		dto.setOptionC(optionC);
+		dto.setOptionD(optionD);
+		dto.setMp3(mp3);
+		dto.setPoint(point);
+		dto.setAnswer(answer);
+		dto.setDescription(description);
+		dto.setPaper(paper);
 		return dto;
 	}
 	
