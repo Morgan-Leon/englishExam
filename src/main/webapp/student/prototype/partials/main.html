@@ -1,0 +1,132 @@
+<div class="row">
+	<div class="col-md-1"></div>
+	<div class="col-md-7">
+		<div class="myBlock mt30 row" style="display:table">
+			<div class="col-md-2 index-left-info col-xs-height">
+				<img class="img-responsive img-circle" ng-src="{{teacher.currentPicture}}">
+			</div>
+			<div class="col-md-9 col-xs-height col-middle">
+				<div class="index-rigth-name">{{teacher.username}}老师</div>
+				<div class="index-rigth-class">
+					{{teacher.school}}&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+					{{teacher.class}}&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+					{{teacher.teaching}}老师
+				</div>
+			</div>
+		</div>
+		<div class="myBlock mt20 book-style row">
+			<div class="head row">
+				<div class="col-md-4">学科资源数据</div>
+				<div class="col-md-2"></div>
+			</div>
+			<div class="body row">
+				<div class="col-md-1"></div>
+				<div class="col-md-2">
+					<img class="img-responsive" src="../static/img/subject/chinese.jpg">
+					<div>语文：{{Category.chinese}}本</div>
+				</div>
+				<div class="col-md-2">
+					<img class="img-responsive" src="../static/img/subject/math.jpg">
+					<div>数学：{{Category.math}}本</div>
+				</div>
+				<div class="col-md-2">
+					<img class="img-responsive" src="../static/img/subject/english.jpg">
+					<div>英语：{{Category.english}}本</div>
+				</div>
+				<div class="col-md-2">
+					<img class="img-responsive" src="../static/img/subject/science.jpg">
+					<div>科学：{{Category.science}}本</div>
+				</div>
+				<div class="col-md-2">
+					<img class="img-responsive" src="../static/img/subject/other.jpg">
+					<div>其他：{{Category.other}}本</div>
+				</div>
+				<div class="col-md-1"></div>
+			</div>
+			<div class="foot"></div>
+		</div>
+		<div class="myBlock mt20 book-style row">
+			<div class="head row">
+				<div class="col-md-4">我推荐的书</div>
+				<div class="col-md-8"><a href="#teachingCenter/myRecommend">更多></a></div>
+			</div>
+			<div class="body row">
+				<div class="col-md-3 index-image-padding" ng-repeat="item in myRecommend">
+					<img class="img-responsive custom-shadow" ng-src="{{item.pictureUrl | formatPictrueUrl}}">
+					<div>{{item.name}}</div>
+				</div>
+			</div>
+			<div class="foot"></div>
+		</div>
+		<div class="myBlock mt20 book-style row">
+			<div class="head row">
+				<div class="col-md-4">热门推荐</div>
+				<div class="col-md-8"><a href="#teachingCenter/addBook/recommend">更多></a></div>
+			</div>
+			<div class="body row">
+				<div class="col-md-3 index-image-padding" ng-repeat="recommend in recommends">
+					<img class="img-responsive custom-shadow" ng-src="{{imageServer+recommend.pictureUrl | formatPictrueUrl}}">
+					<div>{{recommend.name}}</div>
+				</div>
+			</div>
+			<div class="foot"></div>
+		</div>
+	</div>
+	<div class="col-md-3" style="margin-left:20px; width: 20%">
+		<!--<div class="myBlock mt30 row">
+			<div class="head row">
+				<div class="col-md-8">正在发生</div>
+				<div class="col-md-4">
+
+				</div>
+			</div>
+			<div class="body row">
+				<ul class="ml20">
+					<li class="mt8" ng-repeat="action in actionPageable.entities.content">{{ action.title }}</li>
+				</ul>
+			</div>
+			<div class="foot"></div>
+		</div>-->
+		<div class="myBlock mt30 row">
+			<div class="head row">
+				<div class="col-md-8">班级阅读达人</div>
+				<div class="col-md-4"></div>
+			</div>
+			<div class="body row">
+				<div class="row">
+					<div class="col-md-3"></div>
+					<div class="col-md-6"><img class="img-responsive img-circle" ng-src="{{hotReaders.first.picture}}"></div>
+					<div class="col-md-3"></div>
+				</div>
+				<div class="row">
+					<div class="col-md-6"></div>
+					<div class="col-md-3" style="margin-top:-17%;"><img src="../static/img/readingDynamic/first.png" class="img-responsive img-circle"></div>
+				</div>
+				<div class="tc"><h3>{{hotReaders.first.username}}&nbsp;&nbsp;<span style="font-size:20px">{{hotReaders.first.statistic.point}}分</span></h3></div>
+				<hr>
+				<div class="row row-same-height mt8" ng-init="award = ['second', 'third']" ng-repeat="hotreader in hotReaders.others">
+					<div class="col-md-1 col-xs-height col-middle"></div>
+					<div class="col-md-2 col-xs-height col-middle"><img ng-src="../static/img/readingDynamic/{{award[$index]}}.png" class="img-responsive img-circle"></div>
+					<div class="col-md-5 col-xs-height col-middle">
+						{{hotreader.username}}
+					</div>
+					<div class="col-md-3 col-xs-height col-middle">{{hotreader.statistic.point}}分</div>
+				</div>
+			</div>
+			<div class="foot"></div>
+		</div>
+		<div class="myBlock mt20 row">
+			<div class="head row">
+				<div class="col-md-8">热门笔记</div>				
+                <div class="col-md-4 row-title-more"><a href="#hotNotes">更多></a></div>
+			</div>
+			<div class="body row">
+				<div class="row ml20 mt8" ng-repeat="item in hotNotes">
+					<div class="col-md-7" title="{{item.content}}">{{item.content | formatSize6}}</div>
+					<div class="col-md-5">评论：{{item.commentCount}}</div>
+				</div>
+			</div>
+			<div class="foot"></div>
+		</div>
+	</div>
+</div>

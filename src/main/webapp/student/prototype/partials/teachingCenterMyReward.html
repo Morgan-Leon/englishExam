@@ -1,0 +1,37 @@
+<!-- Header bar -->
+<div class="myBlock mt30 page-body">
+    <div class="container-fluid"><div class="container-fluid">
+    <div class="row">
+        <div class="row-same-height">
+            <div class="col-xs-8 col-xs-height">
+                <h5 class="title"><big>已发布的奖励</big></h5>
+            </div>
+            <div class="col-xs-4 col-xs-height col-middle">
+                <a class="btn btn-fill-blue pull-right" type="button" ng-href="#/teachingCenter/myReward/dispatchReward">
+                    创建奖励
+                </a>
+            </div>
+        </div>
+    </div>
+    </div></div>
+</div>
+
+<!-- Items -->
+<div class="myBlock mt20 page-body" ng-repeat="coinhistory in coinhistoryLoadable.entities.content">
+    <div class="container-fluid"><div class="container-fluid">
+    <div class="row">
+        <div class="row-same-height text-center">
+            <div class="col-xs-2 col-xs-height col-middle"><p class="row title hideOverflow">{{class.campusName}}</p></div>
+            <div class="col-xs-2 col-xs-height col-middle"><p class="row title hideOverflow">{{class.name}}</p></div>
+            <div class="col-xs-2 col-xs-height col-middle"><p class="row title hideOverflow">{{coinhistory.studentUsername}}</p></div>
+            <div class="col-xs-2 col-xs-height col-middle"><p class="row title hideOverflow">奖励财富值：{{coinhistory.num}}</p></div>
+            <div class="col-xs-2 col-xs-height col-middle my-reword-reason" ng-click="showRewordReason(coinhistory.reason)"><p class="row title hideOverflow">奖励原因：{{coinhistory.reason}}</p></div>
+        </div>
+    </div>
+    </div></div>
+</div>
+
+<!-- Loadmore -->
+<div class="myBlock mt20 page-body">
+    <div class="load-more-bottom" ng-click="coinhistoryLoadable.get()">{{ coinhistoryLoadable.loadingState }}</div>
+</div>

@@ -1,0 +1,211 @@
+<!doctype html>
+<html data-ng-app="route" lang="zh-cn">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+	<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+	<link href="../static/css/common.css" rel="stylesheet" type="text/css" />
+
+	<link href="../static/css/style.css" rel="stylesheet" type="text/css" />
+	<link href="../static/css/custom-ui.css" rel="stylesheet" type="text/css" />
+	<link href="../static/css/fonts.css" rel="stylesheet" type="text/css" />
+	<link href="../static/css/color.css" rel="stylesheet" type="text/css" />
+	<link href="../static/css/pagebody.css" rel="stylesheet" type="text/css" />
+	<link href="../static/css/dropzone.css" rel="stylesheet" type="text/css" />
+	<link href="../static/css/addBook.css" rel="stylesheet" type="text/css" />
+
+    <link href="//cdn.bootcss.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
+
+</head>
+<body class="bgc-gray">
+	<!--navigation-->
+	<div class="navbar navbar-fixed-top" style="top:55px; background-color:white">
+		<div class="collapse navbar-collapse">
+			<ul class="nav navbar-nav nav-underline" ng-controller="headNavCtrl">
+				<li ng-class="{myActive:isActive(routeMap.index)}" ng-if='type==="Teacher"'><a href="#/">首页</a></li>
+				<li ng-class="{myActive:isActive(routeMap.teachingCenter)}" ng-if='type==="Teacher"'><a href="#/teachingCenter">教学中心</a></li>
+				<li ng-class="{myActive:isActive(routeMap.readingDynamic)}" ng-if='type==="Teacher"'><a href="#/readingDynamic">阅读动态</a></li>
+				<li ng-class="{myActive:isActive(routeMap.statistics)}"><a href="#/statistics">统计分析</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="navbar navbar-fixed-top navbar-dark">
+		<div class="navbar-header">
+			<button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target=".navbar-collapse">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand hidden-sm" href="#/"><img src="../static/img/sunnnyReading.png"></a>
+		</div>
+		<div class="collapse navbar-collapse">
+			<ul class="nav navbar-nav navbar-right hidden-sm" ng-controller="headNavCtrl">
+				<li class="dropdown">
+					<a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown"
+					aria-expanded="false">{{teacher.username}}<b class="caret"></b></a>
+					<ul class="dropdown-menu">
+						<li><a href="#personalProfile">个人中心</a> </li>
+						<li><a ng-click="ShowClasses()" data-toggle="modal" data-target="#changeClassModal">切换班级</a> </li>
+						<li><a href="/login.html" ng-click="logout()">注销</a> </li>
+					</ul>
+				</li>
+				<li><a href="#/messageCenter" style="margin-right:100px">
+					<div class="glyphicon glyphicon-envelope">
+					</div>
+				</a></li>
+			</ul>
+		</div>
+	</div>
+
+	<!--body-->
+	<div data-ui-view style="padding-top:120px" class="container-fluid"></div>
+
+	<div id="alert-modal" class="modal fade bs-example-modal-sm" role="dialog" aria-labelledby="gridSystemModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-sm" style="width:400px;">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" id="gridSystemModalLabel">{{modal.title}}</h4>
+				</div>
+				<div class="modal-body">
+					<div class="container-fluid">
+						<div class="row">
+							{{modal.content}}
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" ng-click="modal.click()" data-dismiss="modal">确定</button>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+
+	<div id="confirm-modal" class="modal fade" role="dialog" aria-labelledby="gridSystemModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-sm" style="width:400px;">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title" id="gridSystemModalLabel">{{modal.title}}</h4>
+				</div>
+				<div class="modal-body">
+					<div class="container-fluid">
+						<div class="row">
+							{{modal.content}}
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">确定</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+
+
+
+	<div class="modal fade" id="changeClassModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title">选择班级</h4>
+				</div>
+				<div class="modal-body">
+				<div ng-repeat="item in Classes">
+					<button type="button" class="btn btn-primary" ng-click="UpdateClass(item)">
+						{{item.name}}
+					</button>
+				</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" ng-click="AddSys()" ng-disabled="addForm.$invalid">确定选择</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!--jQuery-->
+	<script type="text/javascript" src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
+
+	<!--bootstrap-->
+	<script src="http://cdn.bootcss.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+	<!--angularjs-->
+	<script src="http://cdn.bootcss.com/angular.js/1.3.14/angular.min.js"></script>
+	<script src="http://cdn.bootcss.com/angular.js/1.3.14/angular-resource.min.js"></script>
+	<script src="http://cdn.bootcss.com/angular.js/1.3.14/angular-sanitize.js"></script>
+	<script src="//cdn.bootcss.com/angular-ui-router/0.2.13/angular-ui-router.min.js"></script>
+
+  <!-- Chart.js -->
+	<script type="text/javascript" src="../static/js/vendor/Chart.min.js"></script>
+
+	<!--Nourriture scripts-->
+	<script src="../static/js/app.js"></script>
+	<script src="../static/js/config.js"></script>
+
+	<!--Services-->
+	<script src="../static/js/services/userService.js"></script>
+	<script src="../static/js/services/classService.js"></script>
+	<script src="../static/js/services/noteService.js"></script>
+	<script src="../static/js/services/noteViewService.js"></script>
+	<script src="../static/js/services/commentService.js"></script>
+	<script src="../static/js/services/actionService.js"></script>
+	<script src="../static/js/services/pageableService.js"></script>
+	<script src="../static/js/services/addBookService.js"></script>
+	<script src="../static/js/services/campusService.js"></script>
+	<script src="../static/js/services/hotreaderServices.js"></script>
+	<script src="../static/js/services/orderService.js"></script>
+	<script src="../static/js/services/loadableService.js"></script>
+	<script src="../static/js/services/sortableService.js"></script>
+	<script src="../static/js/services/editableService.js"></script>
+	<script src="../static/js/services/taskServices.js"></script>
+	<script src="../static/js/services/dropzoneService.js"></script>
+	<script src="../static/js/services/coinHistoryService.js"></script>
+	<script src="../static/js/services/dictionariesService.js"></script>
+	<script src="../static/js/services/popularSearchServices.js"></script>
+	<script src="../static/js/services/bookDetailService.js"></script>
+	<script src="../static/js/services/reviewService.js"></script>
+	<script src="../static/js/services/hotclazzServices.js"></script>
+	<script src="../static/js/services/recommendServices.js"></script>
+	<script src="../static/js/services/bookshelfServices.js"></script>
+	<script src="../static/js/services/tagService.js"></script>
+	<script src="../static/js/services/booktagService.js"></script>
+	<script src="../static/js/services/likeBookService.js"></script>
+	<script src="../static/js/services/messageServices.js"></script>
+	<script src="../static/js/services/teacherServices.js"></script>
+	<script src="../static/js/services/schoolDistrictService.js"></script>
+	<script src="../static/js/services/regionService.js"></script>
+	<script src="../static/js/services/eduGroupServices.js"></script>
+	<script src="../static/js/services/gradeServices.js"></script>
+	<script src="../static/js/services/sumstatisticServices.js"></script>
+
+	<!--Controllers-->
+	<script src="../static/js/controller/mainCtrl.js"></script>
+	<script src="../static/js/controller/indexCtrl.js"></script>
+	<script src="../static/js/controller/myTaskCtrl.js"></script>
+	<script src="../static/js/controller/myRewardCtrl.js"></script>
+	<script src="../static/js/controller/myRewardDispatchRewardCtrl.js"></script>
+	<script src="../static/js/controller/personalProfileCtrl.js"></script>
+	<script src="../static/js/controller/teachingCenterAddBookCtrl.js"></script>
+	<script src="../static/js/controller/teachingCenterBookDetailsCtrl.js"></script>
+	<script src="../static/js/controller/teachingCenterMyRecommendCtrl.js"></script>
+	<script src="../static/js/controller/teachingCenterMyResourceCtrl.js"></script>
+	<script src="../static/js/controller/teachingCenterAddToShelfCtrl.js"></script>
+	<script src="../static/js/controller/readingDynamicCtrl.js"></script>
+	<script src="../static/js/controller/readingDynamicActionsCtrl.js"></script>
+	<script src="../static/js/controller/hotNotesCtrl.js"></script>
+	<script src="../static/js/controller/messageCenterCtrl.js"></script>
+	<script src="../static/js/controller/statisticsCtrl.js"></script>
+	<script src="../static/js/controller/statisticsStudentsCtrl.js"></script>
+	<script src="../static/js/controller/statisticsClassesCtrl.js"></script>
+	<script src="../static/js/controller/statisticsClassesCategoriesCtrl.js"></script>
+	<script src="../static/js/controller/statisticsCampusesCtrl.js"></script>
+
+	<!-- Libraries -->
+	<script src="../static/js/lib/tokenInjector.js"></script>
+	<script src="../static/js/lib/bs-dropdown.js"></script>
+	<script src="../static/js/lib/checklist-model.js"></script>
+	<script src="../static/js/vendor/dropzone.js"></script>
+</body>
+</html>

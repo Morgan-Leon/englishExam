@@ -1,0 +1,215 @@
+<!--AddBook -->
+<!-- Header bar -->
+<div class="myBlock mt30 page-body">
+    <div class="container-fluid"><div class="container-fluid">
+    <div class="row">
+        <div class="row-same-height">
+            <div class="col-xs-8 col-xs-height">
+                <h5 class="title"><big><a ng-href="#/teachingCenter/myRecommend" class="dark-gray-2">我的推荐</a></big><big> > {{addBook}}</big></h5>
+            </div>
+            <div class="col-xs-4 col-xs-height col-middle">
+            </div>
+        </div>
+    </div>
+    </div></div>
+</div>
+
+
+<div class="container-fluid addBook-body page-body">
+
+    <div class="row addBookFind">
+        <ul class="col-md-9 nav nav-tabs" ng-controller="recommendNavCtrl">
+            <li class="select-tab" ng-class="{myActive:isActiveAddBook(routeMapAddBook.quick)}"><a ui-sref='.quick'>快速查找</a></li>
+            <li class="select-tab" ng-class="{myActive:isActiveAddBook(routeMapAddBook.advanced)}"><a ui-sref='.advanced'>全部的书</a></li>
+            <li class="select-tab" ng-class="{myActive:isActiveAddBook(routeMapAddBook.popular)}"><a ui-sref='.popular'>热门阅读</a></li>
+            <li class="select-tab" ng-class="{myActive:isActiveAddBook(routeMapAddBook.recommend)}"><a ui-sref='.recommend'>热门推荐</a></li>
+        </ul>
+        <div class="col-md-3 lackFeadback">
+            <a id="lackFeadBack" data-toggle="modal" data-target="#supplementBook" type="button" style="color: black;line-height:38px;">
+                缺书反馈</a>
+        </div>
+    </div>
+
+<!-- Modal -->
+<div class="modal fade" id="supplementBook" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+    <div class="modal-content lackBookModel container-fluid">
+        <div class="modal-body">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <!-- Input form -->
+            <div >
+                <h4 class="modal-title" id="myModalLabel">缺书反馈</h4>
+                <p><br />没有找到您想要的书？请反馈此书的相关信息，方便我们及时添加！</p>
+            </div>
+
+            <div>
+                <label class="radio-inline">
+                  <input type="radio" ng-model="language" name="inlineRadioOptions" id="inlineRadio1" value="1" checked>
+                    <p class="popularText">中文</p>
+                </label>&nbsp;&nbsp;&nbsp;&nbsp;
+                <label class="radio-inline">
+                  <input type="radio" ng-model="language" name="inlineRadioOptions" id="inlineRadio2" value="2">
+                    <p class="popularText">英文</p>
+                </label>
+            </div>
+
+                <div class="row">
+                        <div class="lackBookText"><p>ISBN号：</p></div>
+                        <input type="text" ng-model="isbn" class="form-control lackBookInput" placeholder="请输入isbn号（10位或13位）" aria-describedby="sizing-addon2"
+                            ng-minlength=10 ng-maxlength=13 ng-required>
+                            <div style="margin-top: 15px;">
+                              <span style="color:rgba(229, 105, 105, 0.7);padding-top:15px">
+                            <span ng-show="!isbnValid()">ISBN 不合法</span>
+                        </span></div>
+                </div>
+
+            <div class="row">
+                <div class="lackBookText"><p>作者姓名：</p></div>
+                <input type="text" ng-model="author" class="form-control lackBookInput" placeholder="J.K.罗琳" aria-describedby="sizing-addon2">
+            </div>
+
+            <div class="row">
+                <div class="lackBookText"><p>系列名称：</p></div>
+                <input type="text" ng-model="name" class="form-control lackBookInput" placeholder="哈利·波特" aria-describedby="sizing-addon2">
+            </div>
+
+            <div class="row">
+                <div class="lackBookText"><p>出版社：</p></div>
+                <input type="text" ng-model="publisher" class="form-control lackBookInput" placeholder="人民文学出版社" aria-describedby="sizing-addon2">
+            </div>
+
+            <div class="row">
+                <div class="lackBookText"><p>出版日期：</p></div>
+                <input type="date" ng-model="publishDate" class="form-control lackBookInput" placeholder="2014-10-01" value="2015-01-01" aria-describedby="sizing-addon2">
+            </div>
+
+    </div>
+    <div class="row modal-footer">
+        <div class="col-md-12 text-center">
+            <button class="btn btn-blue" ng-disabled="!isbnValid()" ng-click="lackBookFeedback()" type="button">提交</button>
+            &nbsp;&nbsp;
+            <button class="btn btn-blue" ng-click="" type="button" data-dismiss="modal" aria-label="Close">取消</button>
+        </div>
+    </div>
+
+
+    </div>
+    </div>
+</div>
+
+<!-- Booktag Modal -->
+<div class="modal fade" id="booktag" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+    <div class="modal-content container-fluid" style="width:49%">
+        <div class="modal-body">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
+            <div class="modal-title">
+                <h4 id="myModalLabel">标记书籍</h4>
+            </div>
+
+            <div class="row text-center">
+                <h4><big>{{ booktag.name }}</big></h4>
+                <h3></h3>
+            </div>
+
+            <div class="row-same-height">
+                <div class="col-xs-3 col-xs-height col-middle"><p class="row title text-right">课标类型：</p></div>
+                <div class="col-xs-6 col-xs-height col-middle">
+                    <bs-dropdown  ui-if="selected_status.LESSON" data-menu-type="button"
+                        select-val="selected_status.LESSON = selectedVal"
+                        preselected-item="selected_status.LESSON"
+                        data-dropdown-data="statuses.LESSON">
+                    </bs-dropdown>
+                </div>
+                <div class="col-xs-3 col-xs-height col-middle"></div>
+            </div>
+
+            <div class="row-same-height">
+                <div class="col-xs-3 col-xs-height col-middle"><p class="row title text-right">科目：</p></div>
+                <div class="col-xs-6 col-xs-height col-middle">
+                    <bs-dropdown data-menu-type="button"
+                        select-val="selected_status.SUBJECT = selectedVal"
+                        preselected-item="selected_status.SUBJECT"
+                        data-dropdown-data="statuses.SUBJECT">
+                    </bs-dropdown>
+                </div>
+                <div class="col-xs-3 col-xs-height col-middle"></div>
+            </div>
+
+            <div class="row-same-height">
+                <div class="col-xs-3 col-xs-height col-middle"><p class="row title text-right">年级：</p></div>
+                <div class="col-xs-6 col-xs-height col-middle">
+                    <bs-dropdown data-menu-type="button"
+                        select-val="selected_status.GRADE = selectedVal"
+                        preselected-item="selected_status.GRADE"
+                        data-dropdown-data="statuses.GRADE">
+                    </bs-dropdown>
+                </div>
+                <div class="col-xs-3 col-xs-height col-middle"></div>
+            </div>
+
+            <div class="row-same-height">
+                <div class="col-xs-3 col-xs-height col-middle"><p class="row title text-right">章节：</p></div>
+                <div class="col-xs-6 col-xs-height col-middle">
+                    <bs-dropdown data-menu-type="button"
+                        select-val="selected_status.CHAPTER = selectedVal"
+                        preselected-item="selected_status.CHAPTER"
+                        data-dropdown-data="statuses.CHAPTER">
+                    </bs-dropdown>
+                </div>
+                <div class="col-xs-3 col-xs-height col-middle"></div>
+            </div>
+
+            <div class="row-same-height">
+                <div class="col-xs-3 col-xs-height col-middle"><p class="row title text-right">教学主题：</p></div>
+                <div class="col-xs-6 col-xs-height col-middle">
+                    <bs-dropdown data-menu-type="button"
+                        select-val="selected_status.THEME = selectedVal"
+                        preselected-item="selected_status.THEME"
+                        data-dropdown-data="statuses.THEME">
+                    </bs-dropdown>
+                </div>
+                <div class="col-xs-3 col-xs-height col-middle"></div>
+            </div>
+
+<!--
+            <div class="row-same-height">
+                <div class="col-xs-3 col-xs-height col-middle"><p class="row title text-right">备注：</p></div>
+                <div class="col-xs-9 col-xs-height col-middle">
+                    <input type="text" class="custom-input form-control" style="width:100%"></input>
+                </div>
+            </div>
+-->
+
+            <!-- Place holer -->
+            <h4 class="row"></h4>
+
+            <div class="row">
+                <div class="col-md-12 text-left">
+                    <button class="btn btn-fill-blue" type="button" data-dismiss="modal" aria-label="Close" ng-click="booktag.save()">发布标记</button>
+                </div>
+            </div>
+
+            <!-- Place holer -->
+            <p class="row"></p>
+        </div>
+    </div>
+    </div>
+</div>
+
+
+    <div ui-view></div>
+  </div><!--readingCenter Body-->
+
+
+    <div class="modal fade" id="supplementBook" tabindex="-1" role="dialog" aria-labelledby="supplementBookLabel" aria-hidden="true">
+
+    </div>
+
+	<div class="col-md-1"></div>
+
+<script>
+//	SetReadingCenterRightHeight();
+//	SetBookList();
+</script>
