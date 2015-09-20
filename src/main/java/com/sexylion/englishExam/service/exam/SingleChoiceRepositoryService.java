@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.sexylion.englishExam.dto.exam.SingleChoiceDTO;
 import com.sexylion.englishExam.model.exam.SingleChoice;
@@ -34,15 +35,16 @@ public class SingleChoiceRepositoryService implements SingleChoiceService{
 	/* (non-Javadoc)
 	 * @see com.sexylion.englishExam.service.exam.SingleChoiceService#add(com.sexylion.englishExam.dto.exam.SingleChoiceDTO)
 	 */
+    @Transactional
 	@Override
-	public SingleChoiceDTO add(SingleChoiceDTO dto) {
+	public SingleChoice add(SingleChoiceDTO dto) {
 		// TODO Auto-generated method stub
 		SingleChoice model  = new SingleChoice();
 		
 		model = SingleChoice.getBuilder(dto.getName(), dto.getIssue(), dto.getOptionA(), dto.getOptionB(), dto.getOptionC(), dto.getOptionD()
 						, dto.getMp3(), dto.getPoint(),dto.getPaper(), dto.getAnswer()).description(dto.getDescription()).build();
 		
-		return singleChoiceRepo.save(model).createDTO();
+		return singleChoiceRepo.save(model);
 	}
 
 	/* (non-Javadoc)
@@ -58,6 +60,7 @@ public class SingleChoiceRepositoryService implements SingleChoiceService{
 	/* (non-Javadoc)
 	 * @see com.sexylion.englishExam.service.exam.SingleChoiceService#findById(java.lang.Long)
 	 */
+	@Transactional(readOnly = true)
 	@Override
 	public SingleChoice findById(Long id) {
 		// TODO Auto-generated method stub

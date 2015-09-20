@@ -8,7 +8,12 @@ import org.springframework.context.support.ResourceBundleMessageSource;
  * @author Petri Kainulainen
  */
 @Configuration
-@ComponentScan(basePackages = {"com.sexylion.englishExam.todo.service"})
+@ComponentScan(basePackages = {
+		"com.sexylion.englishExam.todo.service",
+		"com.sexylion.englishExam.model",
+		"com.sexylion.englishExam.service"
+		
+})
 @Import({WebAppContext.class, PersistenceContext.class})
 @PropertySource("classpath:application.properties")
 public class ApplicationContext {

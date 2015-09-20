@@ -15,7 +15,7 @@ import com.sexylion.englishExam.model.exam.SingleChoice;
 
 public interface SingleChoiceService {
 	
-    public SingleChoiceDTO add(SingleChoiceDTO singleChoiceDTO);
+    public SingleChoice add(SingleChoiceDTO singleChoiceDTO);
 
     public SingleChoiceDTO update(SingleChoiceDTO singleChoiceDTO,Long singleChoiceID);
 
